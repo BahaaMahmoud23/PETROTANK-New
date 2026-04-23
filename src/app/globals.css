@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Arabic font variable */
+  --font-arabic: var(--font-arabic), 'Noto Kufi Arabic', 'Arial', system-ui, sans-serif;
+
+  /* Brand Colors */
+  --color-primary: #355486;
+  --color-primary-dark: #2E4A78;
+  --color-secondary: #3D6C98;
+  --color-teal: #5EABB3;
+  --color-teal-light: #7ABCC2;
+
+  /* Surfaces */
+  --color-canvas: #F7FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #EEF4F8;
+  --color-surface-blue: #EBF1F8;
+
+  /* Text */
+  --color-ink: #1E2D3D;
+  --color-muted: #5E6E82;
+
+  /* Borders */
+  --color-border: #D9E4EC;
+  --color-border-strong: #B0C4D4;
+
+  /* Font */
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background-color: #F7FAFC;
+  color: #1E2D3D;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: #5EABB3;
+  color: #ffffff;
+}
+
+/* Arabic / RTL font switch */
+[dir="rtl"] {
+  font-family: var(--font-arabic), 'Noto Kufi Arabic', 'Arial', system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Premium Animations ──────────────────────────────── */
+
+@keyframes shimmer-label {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes iso-badge-float {
+  0%,  100% { transform: translateY(0px)  rotate(-4deg) scale(1);    }
+  50%        { transform: translateY(-5px) rotate(-1.5deg) scale(1.04); }
+}
+
+@keyframes status-glow {
+  0%,  100% { box-shadow: 0 0 0 0   rgba(94, 171, 179, 0);    }
+  50%        { box-shadow: 0 0 0 5px rgba(94, 171, 179, 0.22); }
+}
+
+@keyframes text-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0);   }
+}
+
+/* Shimmer gradient for eyebrow labels */
+.label-shimmer {
+  background: linear-gradient(
+    90deg,
+    #5EABB3 0%,
+    #7ABCC2 25%,
+    #c2eaed 50%,
+    #7ABCC2 75%,
+    #5EABB3 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer-label 3.5s ease-in-out infinite;
+}
+
+/* Floating animation for ISO badges */
+.iso-float {
+  animation: iso-badge-float 4s ease-in-out infinite;
+}
+
+/* Pulsing glow for active status indicators */
+.status-active {
+  animation: status-glow 2.8s ease-in-out infinite;
+}
