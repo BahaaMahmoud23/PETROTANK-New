@@ -218,7 +218,7 @@ export default function CapabilitiesPage() {
               transition={{ duration: 0.65 }}
               className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
             >
-              <img src="/images/industry/inspection.jpg" alt="Safety inspection" className="w-full h-full object-cover" loading="lazy" />
+              <img src="/images/ShipatBerth_cb8f1ea3.webp" alt="Safety inspection" className="w-full h-full object-cover" loading="lazy" />
             </motion.div>
           </div>
         </div>
