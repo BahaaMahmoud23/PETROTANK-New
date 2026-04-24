@@ -25,7 +25,7 @@ export default function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover opacity-55"
         aria-hidden="true"
       >
-        <source src="/images/hero%20section%20bg%20video.mp4" type="video/mp4" />
+        <source src="/images/Hero Section Bg Video.mp4" type="video/mp4" />
       </video>
 
       {/* ── Overlay layers ────────────────────────── */}
