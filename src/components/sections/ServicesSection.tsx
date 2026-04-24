@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const serviceImages = [
-  "/images/industry/storage-tanks.jpg",
+  "/images/industry/storage-tanks.webp",
   "/images/industry/ShipatBerth_cb8f1ea3.webp",
   "/images/industry/HeatingStation_2289a74c.jpg",
   "/images/industry/TruckBay_1e9ca1b2.webp",

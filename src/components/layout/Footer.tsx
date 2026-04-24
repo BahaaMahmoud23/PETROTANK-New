@@ -35,9 +35,9 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6 cursor-pointer" aria-label="PETROTANK Home">
-              <div className="relative h-12 w-44 sm:h-14 sm:w-52">
+              <div className="relative h-12 w-94 sm:h-24 sm:w-72">
                 <Image
-                  src="/images/logo.jpeg"
+                  src="/images/logo2.jpeg"
                   alt="PETROTANK"
                   fill
                   className="object-contain object-left"

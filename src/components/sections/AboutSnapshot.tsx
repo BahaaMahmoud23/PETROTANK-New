@@ -68,7 +68,7 @@ export default function AboutSnapshot() {
             className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
           >
             <Image
-              src="/images/industry/CurrentFacilityAreial_6ef4288b.webp"
+              src="/images/industry/CurrentFacilityAreial.webp"
               alt="PETROTANK aerial facility view at King Fahd Industrial Port"
               fill
               className="object-cover"

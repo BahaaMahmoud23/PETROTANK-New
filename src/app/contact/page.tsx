@@ -4,63 +4,18 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Clock, CheckCircle2, Send, ArrowRight } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    label: "Head Office & Terminal",
-    value: "King Fahd Industrial Port, Yanbu, Saudi Arabia",
-    sub: "Berths 6 & 8, Industrial Zone",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "info@petrotank.com.sa",
-    href: "mailto:info@petrotank.com.sa",
-    sub: "We respond within 1–2 business days",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+966 14 XXX XXXX",
-    href: "tel:+96614XXXXXXX",
-    sub: "Available during business hours",
-  },
-  {
-    icon: Clock,
-    label: "Business Hours",
-    value: "Sunday – Thursday",
-    sub: "8:00 AM – 5:00 PM (AST)",
-  },
-];
+const infoIcons = [MapPin, Mail, Phone, Clock];
+const infoHrefs = [null, "mailto:info@petrotank.com.sa", null, null];
 
-const subjects = [
-  "Storage Solutions Inquiry",
-  "Marine Operations",
-  "Blending & Processing",
-  "Truck Logistics",
-  "Automation & Control",
-  "General Inquiry",
-  "Partnership & Business Development",
-  "Other",
-];
-
-type FormState = {
-  name: string;
-  email: string;
-  company: string;
-  subject: string;
-  message: string;
-};
+type FormState = { name: string; email: string; company: string; subject: string; message: string };
 
 export default function ContactPage() {
-  const [form, setForm] = useState<FormState>({
-    name: "",
-    email: "",
-    company: "",
-    subject: "",
-    message: "",
-  });
+  const { t, isRTL } = useLanguage();
+  const cp = t.contactPage;
+
+  const [form, setForm] = useState<FormState>({ name: "", email: "", company: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -72,18 +27,16 @@ export default function ContactPage() {
     setSubmitted(true);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
     <>
       <PageHero
-        label="Contact Us"
-        title="Get in Touch"
-        description="Reach out to the PETROTANK team for storage inquiries, marine operations, partnership opportunities, or any business requirement."
+        label={cp.hero.label}
+        title={cp.hero.title}
+        description={cp.hero.description}
         imageUrl="/images/industry/CurrentFacility_ceda4b07.webp"
       />
 
@@ -92,7 +45,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -101,99 +54,73 @@ export default function ContactPage() {
               <div className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm">
                 {!submitted ? (
                   <>
-                    <h2 className="text-2xl font-bold text-ink mb-2">Send Us a Message</h2>
-                    <p className="text-muted text-sm mb-8">
-                      Complete the form below and a member of our team will respond promptly.
-                    </p>
+                    <h2 className="text-2xl font-bold text-ink mb-2">{cp.formTitle}</h2>
+                    <p className="text-muted text-sm mb-8">{cp.formSubtitle}</p>
 
-                    <form onSubmit={handleSubmit} noValidate aria-label="Contact form">
+                    <form onSubmit={handleSubmit} noValidate aria-label={cp.formTitle}>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
-                        {/* Full Name */}
                         <div>
                           <label htmlFor="name" className="block text-sm font-semibold text-ink mb-1.5">
-                            Full Name <span className="text-teal">*</span>
+                            {cp.fields.name} <span className="text-teal">*</span>
                           </label>
                           <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            value={form.name}
-                            onChange={handleChange}
-                            placeholder="Your full name"
+                            id="name" name="name" type="text" required
+                            value={form.name} onChange={handleChange}
+                            placeholder={cp.fields.placeholder.name}
+                            dir={isRTL ? "rtl" : "ltr"}
                             className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
                           />
                         </div>
-
-                        {/* Email */}
                         <div>
                           <label htmlFor="email" className="block text-sm font-semibold text-ink mb-1.5">
-                            Email Address <span className="text-teal">*</span>
+                            {cp.fields.email} <span className="text-teal">*</span>
                           </label>
                           <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            value={form.email}
-                            onChange={handleChange}
-                            placeholder="your@company.com"
+                            id="email" name="email" type="email" required
+                            value={form.email} onChange={handleChange}
+                            placeholder={cp.fields.placeholder.email}
+                            dir="ltr"
                             className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
                           />
                         </div>
-
-                        {/* Company */}
                         <div>
                           <label htmlFor="company" className="block text-sm font-semibold text-ink mb-1.5">
-                            Company / Organization
+                            {cp.fields.company}
                           </label>
                           <input
-                            id="company"
-                            name="company"
-                            type="text"
-                            value={form.company}
-                            onChange={handleChange}
-                            placeholder="Your company name"
+                            id="company" name="company" type="text"
+                            value={form.company} onChange={handleChange}
+                            placeholder={cp.fields.placeholder.company}
+                            dir={isRTL ? "rtl" : "ltr"}
                             className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
                           />
                         </div>
-
-                        {/* Subject */}
                         <div>
                           <label htmlFor="subject" className="block text-sm font-semibold text-ink mb-1.5">
-                            Subject <span className="text-teal">*</span>
+                            {cp.fields.subject} <span className="text-teal">*</span>
                           </label>
                           <select
-                            id="subject"
-                            name="subject"
-                            required
-                            value={form.subject}
-                            onChange={handleChange}
+                            id="subject" name="subject" required
+                            value={form.subject} onChange={handleChange}
                             className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors cursor-pointer"
                           >
-                            <option value="">Select a subject</option>
-                            {subjects.map((s) => (
-                              <option key={s} value={s}>
-                                {s}
-                              </option>
+                            <option value="">{cp.selectSubject}</option>
+                            {cp.subjects.map((s) => (
+                              <option key={s} value={s}>{s}</option>
                             ))}
                           </select>
                         </div>
                       </div>
 
-                      {/* Message */}
                       <div className="mb-7">
                         <label htmlFor="message" className="block text-sm font-semibold text-ink mb-1.5">
-                          Message <span className="text-teal">*</span>
+                          {cp.fields.message} <span className="text-teal">*</span>
                         </label>
                         <textarea
-                          id="message"
-                          name="message"
-                          required
-                          rows={6}
-                          value={form.message}
-                          onChange={handleChange}
-                          placeholder="Describe your inquiry — the more detail you provide, the better we can assist."
+                          id="message" name="message" required rows={6}
+                          value={form.message} onChange={handleChange}
+                          placeholder={cp.fields.placeholder.message}
+                          dir={isRTL ? "rtl" : "ltr"}
                           className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50 resize-none"
                         />
                       </div>
@@ -209,12 +136,12 @@ export default function ContactPage() {
                               <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
                               <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                             </svg>
-                            Sending...
+                            {cp.sending}
                           </>
                         ) : (
                           <>
                             <Send size={16} />
-                            Send Message
+                            {cp.submitBtn}
                           </>
                         )}
                       </button>
@@ -229,11 +156,8 @@ export default function ContactPage() {
                     <div className="w-16 h-16 rounded-full bg-teal/15 flex items-center justify-center mx-auto mb-5">
                       <CheckCircle2 size={32} className="text-teal" />
                     </div>
-                    <h3 className="text-xl font-bold text-ink mb-2">Message Sent Successfully</h3>
-                    <p className="text-muted text-sm max-w-md mx-auto mb-6">
-                      Thank you for contacting PETROTANK. A member of our team will review your inquiry and
-                      respond within 1–2 business days.
-                    </p>
+                    <h3 className="text-xl font-bold text-ink mb-2">{cp.successTitle}</h3>
+                    <p className="text-muted text-sm max-w-md mx-auto mb-6">{cp.successMsg}</p>
                     <button
                       onClick={() => {
                         setSubmitted(false);
@@ -241,7 +165,8 @@ export default function ContactPage() {
                       }}
                       className="inline-flex items-center gap-2 text-primary hover:text-teal font-semibold text-sm transition-colors cursor-pointer"
                     >
-                      Send Another Message <ArrowRight size={14} />
+                      {cp.sendAnother}
+                      <ArrowRight size={14} className={isRTL ? "scale-x-[-1]" : ""} />
                     </button>
                   </motion.div>
                 )}
@@ -250,53 +175,51 @@ export default function ContactPage() {
 
             {/* Contact Info Sidebar */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: isRTL ? -20 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-5"
             >
               <div>
-                <h2 className="text-xl font-bold text-ink mb-1">Contact Information</h2>
-                <p className="text-sm text-muted">Reach our team directly.</p>
+                <h2 className="text-xl font-bold text-ink mb-1">{cp.infoTitle}</h2>
+                <p className="text-sm text-muted">{cp.infoSubtitle}</p>
               </div>
 
-              {contactInfo.map(({ icon: Icon, label, value, href, sub }) => (
-                <div
-                  key={label}
-                  className="bg-white border border-border rounded-xl p-5 hover:border-teal/30 hover:shadow-sm transition-all"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-surface-blue flex items-center justify-center shrink-0">
-                      <Icon size={18} className="text-primary" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-0.5">{label}</p>
-                      {href ? (
-                        <a href={href} className="text-sm font-semibold text-ink hover:text-teal transition-colors">
-                          {value}
-                        </a>
-                      ) : (
-                        <p className="text-sm font-semibold text-ink">{value}</p>
-                      )}
-                      <p className="text-xs text-muted mt-0.5">{sub}</p>
+              {cp.info.map(({ label, value, sub }, i) => {
+                const Icon = infoIcons[i];
+                const href = infoHrefs[i];
+                return (
+                  <div key={label} className="bg-white border border-border rounded-xl p-5 hover:border-teal/30 hover:shadow-sm transition-all">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-surface-blue flex items-center justify-center shrink-0">
+                        <Icon size={18} className="text-primary" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-0.5">{label}</p>
+                        {href ? (
+                          <a href={href} className="text-sm font-semibold text-ink hover:text-teal transition-colors">{value}</a>
+                        ) : (
+                          <p className="text-sm font-semibold text-ink">{value}</p>
+                        )}
+                        <p className="text-xs text-muted mt-0.5">{sub}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
-              {/* Quick links */}
               <div className="bg-primary rounded-xl p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-3">Quick Links</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-3">{cp.quickLinksTitle}</p>
                 <div className="space-y-2.5">
-                  {["Storage Solutions", "Marine Operations", "Certifications"].map((link) => (
+                  {cp.quickLinks.map(({ label, href }) => (
                     <a
-                      key={link}
-                      href={`/${link.toLowerCase().replace(" ", "-")}`}
+                      key={label}
+                      href={href}
                       className="flex items-center gap-2 text-white/80 hover:text-white text-sm transition-colors cursor-pointer group"
                     >
-                      <ArrowRight size={13} className="text-teal group-hover:translate-x-0.5 transition-transform" />
-                      {link}
+                      <ArrowRight size={13} className={`text-teal group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} />
+                      {label}
                     </a>
                   ))}
                 </div>
@@ -316,10 +239,8 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
           >
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-ink">Our Location</h2>
-              <p className="text-sm text-muted mt-1">
-                King Fahd Industrial Port (KFIP), Yanbu, Saudi Arabia
-              </p>
+              <h2 className="text-xl font-bold text-ink">{cp.locationTitle}</h2>
+              <p className="text-sm text-muted mt-1">{cp.locationSub}</p>
             </div>
             <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
               <iframe
@@ -346,15 +267,9 @@ export default function ContactPage() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="text-muted text-base mb-2">
-              Need immediate operational support?
-            </p>
-            <p className="text-ink font-semibold text-lg mb-1">
-              Our terminal team is available Sunday – Thursday, 8:00 AM – 5:00 PM.
-            </p>
-            <p className="text-sm text-muted">
-              For urgent operational matters, please contact us directly by phone or email.
-            </p>
+            <p className="text-muted text-base mb-2">{cp.urgentTitle}</p>
+            <p className="text-ink font-semibold text-lg mb-1">{cp.urgentBody}</p>
+            <p className="text-sm text-muted">{cp.urgentNote}</p>
           </motion.div>
         </div>
       </section>
