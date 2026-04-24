@@ -36,9 +36,9 @@ export default function CoreValues() {
               {description}
             </p>
 
-            <div className="w-10 h-0.5 bg-teal mb-8" />
+            <div className="hidden lg:block w-10 h-0.5 bg-teal mb-8" />
 
-            <ul className="space-y-2" aria-hidden="true">
+            <ul className="hidden lg:block space-y-2" aria-hidden="true">
               {items.map((v, i) => (
                 <li key={v.name} className="flex items-center gap-3 text-sm">
                   <span className="text-[10px] font-bold text-teal/50 tabular-nums w-5">

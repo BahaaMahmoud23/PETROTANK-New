@@ -73,13 +73,32 @@ export default function AboutPage() {
               transition={{ duration: 0.65 }}
               className="relative"
             >
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10">
-                <img
-                  src="/images/industry/CurrentFacilityAreial.webp"
-                  alt="PETROTANK facility operations"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              {/* 3-image composition: large main left, two smaller images right */}
+              <div className="grid grid-cols-2 grid-rows-2 gap-3 h-[280px] sm:h-[360px] lg:h-[420px]">
+                <div className="row-span-2 rounded-2xl overflow-hidden shadow-xl shadow-primary/10">
+                  <img
+                    src="/images/industry/CurrentFacilityAreial.webp"
+                    alt="PETROTANK facility aerial view"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-md shadow-primary/6">
+                  <img
+                    src="/images/industry/ShipatBerth_cb8f1ea3.webp"
+                    alt="Vessel operations at berth"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-md shadow-primary/6">
+                  <img
+                    src="/images/industry/SCADARoom_e40117d5.webp"
+                    alt="Operations control room"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
               </div>
               <div className="absolute -bottom-5 -start-5 bg-primary text-white rounded-xl p-5 shadow-lg max-w-[200px]">
                 <p className="text-3xl font-bold">669+</p>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { Globe, Building, HardHat, CheckCircle2, Shield, ShieldCheck, ClipboardCheck, RefreshCw, Users } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -17,16 +16,6 @@ const itemRight = { hidden: { opacity: 0, x: 24 },  visible: { opacity: 1, x: 0,
 
 const safetyIcons = [Shield, ShieldCheck, CheckCircle2, Users];
 const complianceIcons = [ClipboardCheck, Users, RefreshCw, Shield];
-
-function IsoBadge({ size = "md" }: { size?: "sm" | "md" }) {
-  const dim = size === "sm" ? 40 : 48;
-  const cls = size === "sm" ? "w-10 h-10" : "w-12 h-12";
-  return (
-    <div className={`iso-float absolute top-4 end-4 z-10 ${cls} rounded-full overflow-hidden shadow-lg ring-2 ring-yellow-400/45`}>
-      <Image src="/images/iso.png" alt="ISO Certified" width={dim} height={dim} className="w-full h-full object-cover" />
-    </div>
-  );
-}
 
 function StatusBadge({ status }: { status: string }) {
   return (
@@ -128,14 +117,13 @@ export default function CertificationsPage() {
                 <div className="h-[3px] bg-gradient-to-r from-primary/70 via-secondary/60 to-teal/50" />
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: "0 0 0 1.5px rgba(53,84,134,0.15), 0 22px 44px -12px rgba(53,84,134,0.12)" }} aria-hidden="true" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/20 via-transparent to-transparent" aria-hidden="true" />
-                <IsoBadge size="md" />
                 <div className="p-7">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-14 h-14 rounded-xl bg-surface-blue flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                       <span className="text-xs font-bold text-primary text-center leading-tight px-1">{name.split(" ")[0]}</span>
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-ink mb-1 pe-16">{name}</h3>
+                  <h3 className="text-lg font-bold text-ink mb-1">{name}</h3>
                   <p className="text-xs text-teal font-medium mb-3">{body}</p>
                   <p className="text-sm text-muted leading-relaxed mb-4">{description}</p>
                   <div className="pt-4 border-t border-border flex items-center justify-between">
@@ -180,12 +168,11 @@ export default function CertificationsPage() {
               >
                 <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: "0 0 0 1.5px rgba(94,171,179,0.2), 0 16px 32px -8px rgba(94,171,179,0.12)" }} aria-hidden="true" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-gradient-to-br from-teal/6 via-transparent to-transparent" aria-hidden="true" />
-                <IsoBadge size="sm" />
                 <div className="p-6">
                   <div className="w-12 h-12 rounded-lg bg-primary/8 flex items-center justify-center mb-4">
                     <span className="text-xs font-bold text-primary">{abbr.split(" ")[0]}</span>
                   </div>
-                  <h3 className="font-bold text-ink text-sm mb-1 pe-12">{abbr}</h3>
+                  <h3 className="font-bold text-ink text-sm mb-1">{abbr}</h3>
                   <p className="text-xs text-teal font-medium mb-3">{name}</p>
                   <p className="text-sm text-muted leading-relaxed">{description}</p>
                 </div>
@@ -225,8 +212,7 @@ export default function CertificationsPage() {
                 >
                   <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: "0 0 0 1.5px rgba(61,108,152,0.15), 0 16px 32px -8px rgba(61,108,152,0.1)" }} aria-hidden="true" />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none bg-gradient-to-br from-secondary/5 via-transparent to-transparent" aria-hidden="true" />
-                  <IsoBadge size="sm" />
-                  <div className="flex items-start gap-5 p-6 pe-16">
+                  <div className="flex items-start gap-5 p-6">
                     <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
                       <Icon size={22} className="text-secondary" />
                     </div>

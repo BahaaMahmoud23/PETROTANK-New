@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Arabic font variable */
-  --font-arabic: var(--font-arabic), 'Noto Kufi Arabic', 'Arial', system-ui, sans-serif;
-
   /* Brand Colors */
   --color-primary: #355486;
   --color-primary-dark: #2E4A78;
@@ -25,14 +22,15 @@
   --color-border: #D9E4EC;
   --color-border-strong: #B0C4D4;
 
-  /* Font */
-  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+  /* Font — Tailwind font-sans utility resolves to Montserrat */
+  --font-sans: var(--font-en), 'Montserrat', system-ui, sans-serif;
 }
 
 body {
   background-color: #F7FAFC;
   color: #1E2D3D;
-  font-family: var(--font-sans);
+  font-family: var(--font-en), 'Montserrat', system-ui, sans-serif;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,10 +48,40 @@ html {
   color: #ffffff;
 }
 
-/* Arabic / RTL font switch */
-[dir="rtl"] {
-  font-family: var(--font-arabic), 'Noto Kufi Arabic', 'Arial', system-ui, sans-serif;
+/* ── Language-based font switching ───────────────────── */
+
+html[lang="en"] body {
+  font-family: var(--font-en), 'Montserrat', system-ui, sans-serif;
+  line-height: 1.55;
+}
+
+html[lang="ar"] {
+  direction: rtl;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-ar), 'Cairo', system-ui, sans-serif;
+  line-height: 1.8;
   letter-spacing: 0;
+}
+
+/* Arabic headings: Cairo 700 is heavy; 600 is the right balance */
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+/* English headings: keep tight line-height for display use */
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] h4 {
+  line-height: 1.2;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -114,4 +142,13 @@ html {
 /* Pulsing glow for active status indicators */
 .status-active {
   animation: status-glow 2.8s ease-in-out infinite;
+}
+
+/* Hide scrollbar while keeping scroll usable */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Kufi_Arabic } from "next/font/google";
+import { Montserrat, Cairo } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/Providers";
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-en",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const arabicFont = Noto_Kufi_Arabic({
-  variable: "--font-arabic",
+const cairo = Cairo({
+  variable: "--font-ar",
   subsets: ["arabic"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       dir="ltr"
-      className={`${inter.variable} ${arabicFont.variable}`}
+      className={`${montserrat.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased bg-canvas text-ink">

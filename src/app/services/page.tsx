@@ -35,7 +35,11 @@ export default function ServicesPage() {
       {/* Service Selector */}
       <section className="py-4 bg-white sticky top-20 z-30 border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex flex-wrap gap-2" aria-label={isRTL ? "تنقل الخدمات" : "Service navigation"} role="tablist">
+          <nav
+            className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5"
+            aria-label={isRTL ? "تنقل الخدمات" : "Service navigation"}
+            role="tablist"
+          >
             {sp.services.map(({ title }, i) => {
               const { id, icon: Icon } = serviceStatics[i];
               return (
@@ -44,7 +48,7 @@ export default function ServicesPage() {
                   onClick={() => setActiveIndex(i)}
                   role="tab"
                   aria-selected={activeIndex === i}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${activeIndex === i
+                  className={`inline-flex shrink-0 items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap ${activeIndex === i
                     ? "bg-primary text-white shadow-md shadow-primary/20"
                     : "bg-canvas border border-border text-muted hover:border-teal/40 hover:text-primary"
                     }`}
