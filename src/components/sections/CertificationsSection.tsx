@@ -1,13 +1,13 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Check, CheckCircle2, Globe, Landmark, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const groupAccents = ["#355486", "#5EABB3", "#3D6C98"];
+const groupIcons = [Globe, Landmark, ShieldCheck];
 
 export default function CertificationsSection() {
   const { t, isRTL } = useLanguage();
@@ -78,6 +78,7 @@ export default function CertificationsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {c.groups.map(({ category, items }, gi) => {
             const accent = groupAccents[gi];
+            const GroupIcon = groupIcons[gi];
             return (
               <motion.div
                 key={category}
@@ -86,11 +87,11 @@ export default function CertificationsSection() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.55, delay: gi * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ y: -6, transition: { duration: 0.22 } }}
-                className="relative bg-white border border-border rounded-2xl overflow-hidden group cursor-default"
+                className="relative bg-white border border-border rounded-2xl overflow-hidden shadow-sm group cursor-default"
               >
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ boxShadow: `0 0 0 1.5px ${accent}2A, 0 22px 44px -12px ${accent}1A` }}
+                  style={{ boxShadow: `0 0 0 1.5px ${accent}2A, 0 24px 48px -12px ${accent}28` }}
                   aria-hidden="true"
                 />
                 <div
@@ -99,14 +100,17 @@ export default function CertificationsSection() {
                 />
                 <div className="h-[3px]" style={{ background: `linear-gradient(90deg, ${accent}DD, ${accent}55)` }} />
 
-                <div className="absolute top-4 end-4 z-10 iso-float" aria-label="ISO Certified badge">
-                  <div className="w-11 h-11 rounded-full overflow-hidden shadow-lg ring-2 ring-yellow-400/45">
-                    <Image src="/images/iso.png" alt="ISO 9001 Certified" width={44} height={44} className="w-full h-full object-cover" />
+                <div className="p-7 pt-6">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${accent}18` }}
+                    >
+                      <GroupIcon size={18} style={{ color: accent }} />
+                    </div>
+                    <h3 className="font-semibold text-ink text-sm leading-snug">{category}</h3>
                   </div>
-                </div>
 
-                <div className="p-7 pt-5">
-                  <h3 className="font-bold text-ink text-sm mb-5 pe-14">{category}</h3>
                   <ul className="space-y-2.5">
                     {items.map((item, ii) => (
                       <motion.li
@@ -115,9 +119,14 @@ export default function CertificationsSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: gi * 0.12 + ii * 0.07 + 0.18 }}
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-2.5"
                       >
-                        <CheckCircle2 size={14} className="shrink-0" style={{ color: accent }} />
+                        <span
+                          className="w-[18px] h-[18px] rounded flex items-center justify-center shrink-0"
+                          style={{ backgroundColor: `${accent}15` }}
+                        >
+                          <Check size={10} style={{ color: accent }} />
+                        </span>
                         <span className="text-sm font-medium text-ink">{item}</span>
                       </motion.li>
                     ))}
