@@ -38,7 +38,7 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal block mb-3 label-shimmer"
+              className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal block mb-3"
             >
               {s.eyebrow}
             </motion.span>
@@ -83,7 +83,7 @@ export default function ServicesSection() {
                 src={serviceImages[0]}
                 alt={s.featured.title}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 sizes="(max-width: 1024px) 100vw, 66vw"
               />
 
@@ -193,7 +193,7 @@ function ServiceCard({
         src={image}
         alt={title}
         fill
-        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
         sizes="(max-width: 768px) 100vw, 33vw"
       />
 

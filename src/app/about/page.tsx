@@ -18,19 +18,13 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { fadeUp, stagger } from "@/lib/animations";
 
 const coreValueIcons = [Users, Star, Scale, Lightbulb, ShieldCheck];
 const facilityIcons = [Droplets, Building2, Anchor, Activity, Award, Building2];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
-};
+const containerVariants = stagger;
+const itemVariants = fadeUp;
 
 export default function AboutPage() {
   const { t, isRTL } = useLanguage();
@@ -166,8 +160,13 @@ export default function AboutPage() {
                 <motion.div
                   key={name}
                   variants={itemVariants}
-                  className="group flex flex-col items-center text-center bg-canvas border border-border rounded-xl p-6 hover:border-teal/30 hover:shadow-md transition-all cursor-default"
+                  whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                  className="relative group flex flex-col items-center text-center bg-canvas border border-border rounded-xl p-6 hover:border-teal/30 hover:shadow-md transition-all cursor-default"
                 >
+                  {/* Index — visible on sm+ only */}
+                  <span className="hidden sm:block absolute top-3 end-3 text-[11px] font-bold text-border-strong/60 tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <div className="w-12 h-12 rounded-xl bg-surface-blue flex items-center justify-center mb-3">
                     <Icon size={22} className="text-primary" />
                   </div>
@@ -244,7 +243,7 @@ export default function AboutPage() {
                 <motion.div
                   key={label}
                   variants={itemVariants}
-                  className="group flex items-start gap-4 bg-canvas border border-border rounded-xl p-6 hover:border-teal/30 hover:shadow-md transition-all"
+                  className="group flex items-start gap-4 bg-canvas border border-border rounded-xl p-6 hover:border-teal/30 hover:shadow-md transition-all duration-250"
                 >
                   <div className="w-12 h-12 rounded-lg bg-surface-blue flex items-center justify-center shrink-0 group-hover:bg-teal/10 transition-colors">
                     <Icon size={22} className="text-primary group-hover:text-teal transition-colors" />

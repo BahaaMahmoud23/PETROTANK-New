@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Droplets, FlaskConical, Anchor, Truck, Cpu, CheckCircle2, ChevronRight, ArrowRight } from "lucide-react";
+import { Droplets, FlaskConical, Anchor, Truck, Cpu, CheckCircle2, ArrowRight } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -33,7 +33,7 @@ export default function ServicesPage() {
       />
 
       {/* Service Selector */}
-      <section className="py-4 bg-white sticky top-20 z-30 border-b border-border shadow-sm">
+      <section className="py-4 bg-white sticky top-[72px] z-30 border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5"
@@ -134,41 +134,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* All services list */}
-      <section className="py-16 bg-white border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold text-ink mb-6">{sp.allServicesHeading}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {sp.services.map(({ title }, i) => {
-              const { id, icon: Icon, color, bg } = serviceStatics[i];
-              return (
-                <button
-                  key={id}
-                  onClick={() => {
-                    setActiveIndex(i);
-                    window.scrollTo({ top: 200, behavior: "smooth" });
-                  }}
-                  className={`flex flex-col items-center text-center p-5 rounded-xl border transition-all cursor-pointer group ${activeIndex === i
-                    ? "border-primary bg-surface-blue"
-                    : "border-border hover:border-teal/30 hover:bg-canvas"
-                    }`}
-                >
-                  <div className={`w-10 h-10 rounded-lg ${bg} flex items-center justify-center mb-3`}>
-                    <Icon size={20} className={color} />
-                  </div>
-                  <span className={`text-xs font-semibold ${activeIndex === i ? "text-primary" : "text-ink group-hover:text-primary"} transition-colors`}>
-                    {title}
-                  </span>
-                  <ChevronRight
-                    size={14}
-                    className={`mt-2 transition-colors ${isRTL ? "scale-x-[-1]" : ""} ${activeIndex === i ? "text-teal" : "text-border group-hover:text-teal"}`}
-                  />
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
     </>
   );
 }

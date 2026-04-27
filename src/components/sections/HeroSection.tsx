@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Droplets, Container, Anchor, Gauge } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { fadeUp, stagger } from "@/lib/animations";
 
 const metricIcons = [Droplets, Container, Anchor, Gauge];
 
@@ -13,7 +14,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative w-full overflow-hidden bg-[#0d1c2e]"
-      style={{ minHeight: "calc(100vh - 72px)", marginTop: "72px" }}
+      style={{ minHeight: "100vh" }}
       aria-label="Hero"
     >
       {/* ── Background video ──────────────────────── */}
@@ -29,7 +30,6 @@ export default function HeroSection() {
       </video>
 
       {/* ── Overlay layers ────────────────────────── */}
-      {/* Left-heavy brand gradient — mirrors for RTL */}
       <div
         className="absolute inset-0"
         style={{
@@ -39,31 +39,35 @@ export default function HeroSection() {
         }}
         aria-hidden="true"
       />
-      {/* Bottom darkening */}
       <div
         className="absolute inset-0 bg-gradient-to-t from-[#0d1c2e]/80 via-transparent to-[#0d1c2e]/25"
         aria-hidden="true"
       />
+      {/* Top scrim — ensures transparent navbar stays readable */}
+      <div
+        className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/35 to-transparent pointer-events-none"
+        aria-hidden="true"
+      />
 
       {/* ── Content ───────────────────────────────── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-full py-20 lg:py-28">
-        <div className="max-w-2xl w-full">
-
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-full pt-28 pb-20 lg:pt-32 lg:pb-24" style={{ minHeight: "100vh" }}>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="max-w-2xl w-full"
+        >
           {/* Eyebrow */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            variants={fadeUp}
             className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal mb-5"
           >
             {t.hero.eyebrow}
           </motion.p>
 
-          {/* H1 — two lines, reference-sized */}
+          {/* H1 */}
           <motion.h1
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.1 }}
+            variants={fadeUp}
             className="text-[clamp(2.8rem,6vw,5rem)] font-bold text-white leading-[1.05] tracking-tight mb-4"
           >
             {t.hero.h1Line1}
@@ -73,45 +77,40 @@ export default function HeroSection() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[15px] text-white/70 mb-8 font-normal"
+            variants={fadeUp}
+            className="text-[15px] text-white/70 mb-9 font-normal"
           >
             {t.hero.subtitle}
           </motion.p>
 
-          {/* ── 4 Metric pills ───────────────────── */}
+          {/* ── 4 Metric cards in one equal row ──────── */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.32 }}
-            className="flex flex-wrap gap-3 mb-9"
+            variants={stagger}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-9"
           >
             {t.hero.metrics.map(({ value, label }, i) => {
               const Icon = metricIcons[i];
               return (
-                <div
+                <motion.div
                   key={label}
-                  className="flex items-center gap-2.5 bg-white/10 border border-white/15 backdrop-blur-sm rounded-lg px-4 py-2.5"
+                  variants={fadeUp}
+                  className="flex items-center gap-2.5 bg-white/10 border border-white/15 backdrop-blur-sm rounded-xl px-4 py-3"
                 >
                   <div className="w-7 h-7 rounded-full border border-teal/40 flex items-center justify-center shrink-0">
-                    <Icon size={14} className="text-teal-light" aria-hidden="true" />
+                    <Icon size={13} className="text-teal-light" aria-hidden="true" />
                   </div>
-                  <div>
-                    <p className="text-white font-bold text-[13px] leading-tight">{value}</p>
-                    <p className="text-white/55 text-[11px] leading-tight">{label}</p>
+                  <div className="min-w-0">
+                    <p className="text-white font-bold text-[12.5px] leading-tight truncate">{value}</p>
+                    <p className="text-white/55 text-[10.5px] leading-tight">{label}</p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </motion.div>
 
           {/* ── CTAs ─────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.45 }}
+            variants={fadeUp}
             className="flex flex-col sm:flex-row gap-3"
           >
             <Link
@@ -129,7 +128,7 @@ export default function HeroSection() {
               <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Bottom fade into stats bar ────────────── */}

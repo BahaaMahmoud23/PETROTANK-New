@@ -94,7 +94,8 @@ export default function GrowthInitiatives() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08 }}
-              className="bg-white border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all group"
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="bg-white border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300 group"
             >
               {/* Icon + badge row */}
               <div className="flex items-start justify-between mb-4">

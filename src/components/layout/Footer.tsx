@@ -37,7 +37,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-6 cursor-pointer" aria-label="PETROTANK Home">
               <div className="relative h-12 w-94 sm:h-24 sm:w-72">
                 <Image
-                  src="/images/logo2.jpeg"
+                  src="/images/logo2.png"
                   alt="PETROTANK"
                   fill
                   className="object-contain object-left"

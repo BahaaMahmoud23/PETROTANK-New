@@ -13,7 +13,7 @@ export default function PageHero({ label, title, description, imageUrl }: PageHe
   const defaultImage = "/images/industry/tanks-aerial.jpg";
 
   return (
-    <section className="relative min-h-[42vh] flex items-center overflow-hidden pt-20">
+    <section className="relative min-h-[54vh] flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
@@ -22,11 +22,13 @@ export default function PageHero({ label, title, description, imageUrl }: PageHe
           className="w-full h-full object-cover object-center"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2E4A78]/95 via-[#355486]/88 to-[#355486]/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2E4A78]/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2E4A78]/96 via-[#355486]/88 to-[#355486]/65" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2E4A78]/50 via-transparent to-transparent" />
+        {/* Top scrim for readable transparent navbar */}
+        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/30 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 w-full">
         <div className="max-w-3xl">
           {label && (
             <motion.span

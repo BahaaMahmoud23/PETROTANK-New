@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Clock, CheckCircle2, Send, ArrowRight } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { fadeUp } from "@/lib/animations";
 
 const infoIcons = [MapPin, Mail, Phone, Clock];
 const infoHrefs = [null, "mailto:info@petrotank.com.sa", null, null];
@@ -40,178 +41,179 @@ export default function ContactPage() {
         imageUrl="/images/industry/CurrentFacility_ceda4b07.webp"
       />
 
+      {/* ── Form + Info — equal 2-column ─────────── */}
       <section className="py-20 bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-2"
+              className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm"
             >
-              <div className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm">
-                {!submitted ? (
-                  <>
-                    <h2 className="text-2xl font-bold text-ink mb-2">{cp.formTitle}</h2>
-                    <p className="text-muted text-sm mb-8">{cp.formSubtitle}</p>
+              {!submitted ? (
+                <>
+                  <h2 className="text-2xl font-bold text-ink mb-2">{cp.formTitle}</h2>
+                  <p className="text-muted text-sm mb-8">{cp.formSubtitle}</p>
 
-                    <form onSubmit={handleSubmit} noValidate aria-label={cp.formTitle}>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-semibold text-ink mb-1.5">
-                            {cp.fields.name} <span className="text-teal">*</span>
-                          </label>
-                          <input
-                            id="name" name="name" type="text" required
-                            value={form.name} onChange={handleChange}
-                            placeholder={cp.fields.placeholder.name}
-                            dir={isRTL ? "rtl" : "ltr"}
-                            className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-semibold text-ink mb-1.5">
-                            {cp.fields.email} <span className="text-teal">*</span>
-                          </label>
-                          <input
-                            id="email" name="email" type="email" required
-                            value={form.email} onChange={handleChange}
-                            placeholder={cp.fields.placeholder.email}
-                            dir="ltr"
-                            className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="company" className="block text-sm font-semibold text-ink mb-1.5">
-                            {cp.fields.company}
-                          </label>
-                          <input
-                            id="company" name="company" type="text"
-                            value={form.company} onChange={handleChange}
-                            placeholder={cp.fields.placeholder.company}
-                            dir={isRTL ? "rtl" : "ltr"}
-                            className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="subject" className="block text-sm font-semibold text-ink mb-1.5">
-                            {cp.fields.subject} <span className="text-teal">*</span>
-                          </label>
-                          <select
-                            id="subject" name="subject" required
-                            value={form.subject} onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors cursor-pointer"
-                          >
-                            <option value="">{cp.selectSubject}</option>
-                            {cp.subjects.map((s) => (
-                              <option key={s} value={s}>{s}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="mb-7">
-                        <label htmlFor="message" className="block text-sm font-semibold text-ink mb-1.5">
-                          {cp.fields.message} <span className="text-teal">*</span>
+                  <form onSubmit={handleSubmit} noValidate aria-label={cp.formTitle}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-semibold text-ink mb-1.5">
+                          {cp.fields.name} <span className="text-teal">*</span>
                         </label>
-                        <textarea
-                          id="message" name="message" required rows={6}
-                          value={form.message} onChange={handleChange}
-                          placeholder={cp.fields.placeholder.message}
+                        <input
+                          id="name" name="name" type="text" required
+                          value={form.name} onChange={handleChange}
+                          placeholder={cp.fields.placeholder.name}
                           dir={isRTL ? "rtl" : "ltr"}
-                          className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50 resize-none"
+                          className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
                         />
                       </div>
-
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-primary-dark disabled:opacity-60 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 cursor-pointer w-full sm:w-auto"
-                      >
-                        {loading ? (
-                          <>
-                            <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-                              <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                            </svg>
-                            {cp.sending}
-                          </>
-                        ) : (
-                          <>
-                            <Send size={16} />
-                            {cp.submitBtn}
-                          </>
-                        )}
-                      </button>
-                    </form>
-                  </>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-10"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-teal/15 flex items-center justify-center mx-auto mb-5">
-                      <CheckCircle2 size={32} className="text-teal" />
-                    </div>
-                    <h3 className="text-xl font-bold text-ink mb-2">{cp.successTitle}</h3>
-                    <p className="text-muted text-sm max-w-md mx-auto mb-6">{cp.successMsg}</p>
-                    <button
-                      onClick={() => {
-                        setSubmitted(false);
-                        setForm({ name: "", email: "", company: "", subject: "", message: "" });
-                      }}
-                      className="inline-flex items-center gap-2 text-primary hover:text-teal font-semibold text-sm transition-colors cursor-pointer"
-                    >
-                      {cp.sendAnother}
-                      <ArrowRight size={14} className={isRTL ? "scale-x-[-1]" : ""} />
-                    </button>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Contact Info Sidebar */}
-            <motion.div
-              initial={{ opacity: 0, x: isRTL ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-5"
-            >
-              <div>
-                <h2 className="text-xl font-bold text-ink mb-1">{cp.infoTitle}</h2>
-                <p className="text-sm text-muted">{cp.infoSubtitle}</p>
-              </div>
-
-              {cp.info.map(({ label, value, sub }, i) => {
-                const Icon = infoIcons[i];
-                const href = infoHrefs[i];
-                return (
-                  <div key={label} className="bg-white border border-border rounded-xl p-5 hover:border-teal/30 hover:shadow-sm transition-all">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-surface-blue flex items-center justify-center shrink-0">
-                        <Icon size={18} className="text-primary" aria-hidden="true" />
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-semibold text-ink mb-1.5">
+                          {cp.fields.email} <span className="text-teal">*</span>
+                        </label>
+                        <input
+                          id="email" name="email" type="email" required
+                          value={form.email} onChange={handleChange}
+                          placeholder={cp.fields.placeholder.email}
+                          dir="ltr"
+                          className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
+                        />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-0.5">{label}</p>
-                        {href ? (
-                          <a href={href} className="text-sm font-semibold text-ink hover:text-teal transition-colors">{value}</a>
-                        ) : (
-                          <p className="text-sm font-semibold text-ink">{value}</p>
-                        )}
-                        <p className="text-xs text-muted mt-0.5">{sub}</p>
+                        <label htmlFor="company" className="block text-sm font-semibold text-ink mb-1.5">
+                          {cp.fields.company}
+                        </label>
+                        <input
+                          id="company" name="company" type="text"
+                          value={form.company} onChange={handleChange}
+                          placeholder={cp.fields.placeholder.company}
+                          dir={isRTL ? "rtl" : "ltr"}
+                          className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="subject" className="block text-sm font-semibold text-ink mb-1.5">
+                          {cp.fields.subject} <span className="text-teal">*</span>
+                        </label>
+                        <select
+                          id="subject" name="subject" required
+                          value={form.subject} onChange={handleChange}
+                          className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors cursor-pointer"
+                        >
+                          <option value="">{cp.selectSubject}</option>
+                          {cp.subjects.map((s) => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
 
-              <div className="bg-primary rounded-xl p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-3">{cp.quickLinksTitle}</p>
-                <div className="space-y-2.5">
+                    <div className="mb-7">
+                      <label htmlFor="message" className="block text-sm font-semibold text-ink mb-1.5">
+                        {cp.fields.message} <span className="text-teal">*</span>
+                      </label>
+                      <textarea
+                        id="message" name="message" required rows={5}
+                        value={form.message} onChange={handleChange}
+                        placeholder={cp.fields.placeholder.message}
+                        dir={isRTL ? "rtl" : "ltr"}
+                        className="w-full px-4 py-3 rounded-lg border border-border bg-canvas text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors placeholder:text-muted/50 resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-primary-dark disabled:opacity-60 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 cursor-pointer w-full sm:w-auto"
+                    >
+                      {loading ? (
+                        <>
+                          <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+                            <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                          </svg>
+                          {cp.sending}
+                        </>
+                      ) : (
+                        <>
+                          <Send size={16} />
+                          {cp.submitBtn}
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-10"
+                >
+                  <div className="w-16 h-16 rounded-full bg-teal/15 flex items-center justify-center mx-auto mb-5">
+                    <CheckCircle2 size={32} className="text-teal" />
+                  </div>
+                  <h3 className="text-xl font-bold text-ink mb-2">{cp.successTitle}</h3>
+                  <p className="text-muted text-sm max-w-md mx-auto mb-6">{cp.successMsg}</p>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setForm({ name: "", email: "", company: "", subject: "", message: "" });
+                    }}
+                    className="inline-flex items-center gap-2 text-primary hover:text-teal font-semibold text-sm transition-colors cursor-pointer"
+                  >
+                    {cp.sendAnother}
+                    <ArrowRight size={14} className={isRTL ? "scale-x-[-1]" : ""} />
+                  </button>
+                </motion.div>
+              )}
+            </motion.div>
+
+            {/* Contact Info */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col gap-5"
+            >
+              <div className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm">
+                <h2 className="text-xl font-bold text-ink mb-1">{cp.infoTitle}</h2>
+                <p className="text-sm text-muted mb-7">{cp.infoSubtitle}</p>
+
+                <div className="space-y-4">
+                  {cp.info.map(({ label, value, sub }, i) => {
+                    const Icon = infoIcons[i];
+                    const href = infoHrefs[i];
+                    return (
+                      <div key={label} className="flex items-start gap-4 p-4 bg-canvas border border-border rounded-xl hover:border-teal/30 transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-surface-blue flex items-center justify-center shrink-0">
+                          <Icon size={18} className="text-primary" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-0.5">{label}</p>
+                          {href ? (
+                            <a href={href} className="text-sm font-semibold text-ink hover:text-teal transition-colors">{value}</a>
+                          ) : (
+                            <p className="text-sm font-semibold text-ink">{value}</p>
+                          )}
+                          <p className="text-xs text-muted mt-0.5">{sub}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="bg-primary rounded-2xl p-8">
+                <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-4">{cp.quickLinksTitle}</p>
+                <div className="space-y-3">
                   {cp.quickLinks.map(({ label, href }) => (
                     <a
                       key={label}
@@ -225,49 +227,48 @@ export default function ContactPage() {
                 </div>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* Google Map */}
-      <section className="pb-20 bg-canvas">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-ink">{cp.locationTitle}</h2>
-              <p className="text-sm text-muted mt-1">{cp.locationSub}</p>
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d39462.89050812361!2d38.19405171224359!3d24.103969096185317!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1776898568649!5m2!1sen!2sus"
-                width="100%"
-                height="420"
-                style={{ border: 0, display: "block" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="PETROTANK Location — King Fahd Industrial Port, Yanbu, Saudi Arabia"
-              />
-            </div>
-          </motion.div>
+      {/* ── Map — full-width block ─────────────────── */}
+      <section className="bg-canvas border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-4">
+          <h2 className="text-xl font-bold text-ink">{cp.locationTitle}</h2>
+          <p className="text-sm text-muted mt-1 mb-6">{cp.locationSub}</p>
         </div>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="border-t border-border"
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d39462.89050812361!2d38.19405171224359!3d24.103969096185317!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1776898568649!5m2!1sen!2sus"
+            width="100%"
+            height="480"
+            style={{ border: 0, display: "block" }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="PETROTANK Location — King Fahd Industrial Port, Yanbu, Saudi Arabia"
+          />
+        </motion.div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 bg-white border-t border-border">
+      {/* ── Final CTA ─────────────────────────────── */}
+      <section className="py-14 bg-white border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="text-muted text-base mb-2">{cp.urgentTitle}</p>
+            <p className="text-muted text-base mb-1.5">{cp.urgentTitle}</p>
             <p className="text-ink font-semibold text-lg mb-1">{cp.urgentBody}</p>
             <p className="text-sm text-muted">{cp.urgentNote}</p>
           </motion.div>
