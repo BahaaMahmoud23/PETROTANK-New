@@ -62,7 +62,7 @@ export default function ServicesSection() {
         </div>
 
         {/* ── Bento image grid ────────────────────────── */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 
           {/* ── FEATURED: Storage Solutions (2 cols × tall) ─ */}
           <motion.div
@@ -70,7 +70,7 @@ export default function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.65 }}
-            className="col-span-2 row-span-1"
+            className="col-span-1 md:col-span-2 row-span-1"
             style={{ height: 380 }}
           >
             <Link
