@@ -210,25 +210,34 @@ export default function ContactPage() {
                   })}
                 </div>
               </div>
-
-              <div className="bg-primary rounded-2xl p-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-4">{cp.quickLinksTitle}</p>
-                <div className="space-y-3">
-                  {cp.quickLinks.map(({ label, href }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      className="flex items-center gap-2 text-white/80 hover:text-white text-sm transition-colors cursor-pointer group"
-                    >
-                      <ArrowRight size={13} className={`text-teal group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} />
-                      {label}
-                    </a>
-                  ))}
-                </div>
-              </div>
             </motion.div>
 
           </div>
+
+          {/* ── Quick Links — full width below form + info ── */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-8 bg-primary rounded-2xl p-8"
+          >
+            <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-6">{cp.quickLinksTitle}</p>
+            <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4">
+              {cp.quickLinks.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors cursor-pointer group"
+                >
+                  <ArrowRight size={14} className={`text-teal shrink-0 group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} />
+                  {label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
         </div>
       </section>
 

@@ -42,17 +42,17 @@ export default function FacilityMetrics() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
-              className={`py-9 px-6 ${
+              className={`py-8 px-4 flex flex-col justify-center min-h-[100px] ${
                 i < items.length - 1 ? "border-e border-white/8" : ""
-              } first:ps-0 last:pe-0 group`}
+              } first:ps-0 last:pe-0 group overflow-hidden`}
             >
-              <p className="text-2xl lg:text-3xl font-bold text-white leading-none mb-1.5 group-hover:text-teal-light transition-colors duration-300">
+              <p className="text-2xl lg:text-base font-bold text-white leading-none mb-1.5 group-hover:text-teal-light transition-colors duration-300 truncate">
                 {value}
               </p>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal mb-1">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-teal mb-0.5 truncate">
                 {label}
               </p>
-              <p className="text-[10px] text-white/30">{sub}</p>
+              <p className="text-[9px] text-white/30 truncate">{sub}</p>
             </motion.div>
           ))}
         </div>

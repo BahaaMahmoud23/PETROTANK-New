@@ -256,9 +256,9 @@ export default function CapabilitiesPage() {
               <motion.div
                 key={label}
                 variants={itemVariants}
-                className="text-center bg-white/5 border border-white/10 rounded-xl p-7"
+                className="text-center bg-white/5 border border-white/10 rounded-xl p-7 min-h-[120px] flex flex-col items-center justify-center"
               >
-                <p className="text-3xl md:text-4xl font-bold text-white mb-1">
+                <p className="text-3xl lg:text-2xl font-bold text-white mb-1 whitespace-nowrap tabular-nums">
                   <AnimatedCounter
                     target={performanceData[i].target}
                     suffix={performanceData[i].suffix}

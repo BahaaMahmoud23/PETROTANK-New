@@ -94,14 +94,14 @@ export default function HeroSection() {
                 <motion.div
                   key={label}
                   variants={fadeUp}
-                  className="flex items-center gap-2.5 bg-white/10 border border-white/15 backdrop-blur-sm rounded-xl px-4 py-3"
+                  className="flex items-center gap-2.5 bg-white/10 border border-white/15 backdrop-blur-sm rounded-xl px-4 py-3 min-h-[58px]"
                 >
                   <div className="w-7 h-7 rounded-full border border-teal/40 flex items-center justify-center shrink-0">
                     <Icon size={13} className="text-teal-light" aria-hidden="true" />
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-white font-bold text-[12.5px] leading-tight truncate">{value}</p>
-                    <p className="text-white/55 text-[10.5px] leading-tight">{label}</p>
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-white font-bold text-[12px] leading-tight truncate">{value}</p>
+                    <p className="text-white/55 text-[10px] leading-tight truncate">{label}</p>
                   </div>
                 </motion.div>
               );

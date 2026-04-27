@@ -19,15 +19,15 @@ export default function StatsBar() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="bg-white rounded-2xl shadow-xl shadow-ink/10 border border-border overflow-hidden"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {t.statsBar.map(({ value, label }, i) => {
               const Icon = statIcons[i];
               const isLast = i === t.statsBar.length - 1;
               return (
                 <div
                   key={label}
-                  className={`flex items-center gap-4 px-6 py-6 ${
-                    !isLast ? "border-b md:border-b-0 md:border-e border-border" : ""
+                  className={`flex items-center gap-4 px-6 py-6 min-h-[80px] ${
+                    !isLast ? "border-b lg:border-b-0 lg:border-e border-border" : ""
                   }`}
                 >
                   {/* Icon */}
@@ -35,9 +35,9 @@ export default function StatsBar() {
                     <Icon size={20} className="text-primary" aria-hidden="true" />
                   </div>
                   {/* Text */}
-                  <div>
-                    <p className="text-xl font-bold text-ink leading-tight">{value}</p>
-                    <p className="text-xs text-muted mt-0.5 font-medium">{label}</p>
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-xl font-bold text-ink leading-tight truncate">{value}</p>
+                    <p className="text-[11px] text-muted mt-0.5 font-medium whitespace-nowrap">{label}</p>
                   </div>
                 </div>
               );

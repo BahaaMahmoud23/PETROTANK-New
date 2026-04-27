@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -12,18 +12,31 @@ import type { Locale } from "@/contexts/LanguageContext";
 export default function Header() {
   const { t, locale, setLocale, isRTL } = useLanguage();
   const [atTop, setAtTop] = useState(true);
+  const [hidden, setHidden] = useState(false);
+  const [hoverTop, setHoverTop] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const prevScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const threshold = pathname === "/" ? window.innerHeight * 0.82 : window.innerHeight * 0.36;
-    const onScroll = () => setAtTop(window.scrollY < threshold);
+    const onScroll = () => {
+      const current = window.scrollY;
+      setAtTop(current < threshold);
+      if (current > 80) {
+        setHidden(current > prevScrollY.current);
+      } else {
+        setHidden(false);
+      }
+      prevScrollY.current = current;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
   useEffect(() => setMobileOpen(false), [pathname]);
+  useEffect(() => { if (hidden) setMobileOpen(false); }, [hidden]);
 
   const navLinks = [
     { label: t.nav.home, href: "/" },
@@ -43,8 +56,23 @@ export default function Header() {
   const activeLinkColor = atTop ? "text-white" : "text-primary";
   const activeLineColor = atTop ? "bg-white" : "bg-primary";
 
+  const navVisible = !hidden || hoverTop;
+
   return (
-    <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <>
+    {/* Hover zone — catches cursor at page-top when nav is hidden */}
+    <div
+      className="fixed inset-x-0 top-0 h-4 z-[52] pointer-events-auto"
+      onMouseEnter={() => setHoverTop(true)}
+      onMouseLeave={() => setHoverTop(false)}
+      aria-hidden="true"
+    />
+    <header
+      className="fixed top-0 inset-x-0 z-50"
+      style={{ transform: navVisible ? "translateY(0)" : "translateY(-100%)", transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)" }}
+      onMouseEnter={() => setHoverTop(true)}
+      onMouseLeave={() => setHoverTop(false)}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
 
@@ -159,5 +187,6 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
+    </>
   );
 }

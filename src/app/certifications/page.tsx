@@ -37,9 +37,18 @@ function CertCard({ abbr, title, issuer, description, footer, status, colorIdx }
       whileHover={{ y: -4, boxShadow: "0 12px 40px -8px rgba(53,84,134,0.14)", transition: { duration: 0.25 } }}
       className="bg-white border border-border rounded-2xl overflow-hidden flex flex-col h-full transition-colors duration-200 hover:border-border-strong"
     >
-      {/* Image placeholder / accent top */}
-      <div className={`${c.bg} flex items-center justify-center h-[72px] px-6 shrink-0`}>
-        <span className={`text-lg font-bold ${c.text} text-center leading-tight`}>{abbr}</span>
+      {/* Certificate image */}
+      <div className="relative h-[140px] shrink-0 overflow-hidden">
+        <img
+          src="/images/industry/iso%20cirtificate.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+        <span className={`absolute bottom-3 start-3 text-xs font-bold px-2.5 py-1 rounded-md ${c.badge}`}>
+          {abbr}
+        </span>
       </div>
 
       {/* Body */}
