@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ease } from "@/lib/animations";
 
 interface PageHeroProps {
   label?: string;
@@ -16,7 +17,10 @@ export default function PageHero({ label, title, description, imageUrl }: PageHe
     <section className="relative min-h-[54vh] flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        <img
+        <motion.img
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.2, ease }}
           src={imageUrl || defaultImage}
           alt={title}
           className="w-full h-full object-cover object-center"
@@ -32,27 +36,27 @@ export default function PageHero({ label, title, description, imageUrl }: PageHe
         <div className="max-w-3xl">
           {label && (
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7, ease }}
               className="inline-block mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-teal-light border border-teal/30 bg-teal/10 rounded-full px-4 py-1.5"
             >
               {label}
             </motion.span>
           )}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.9, delay: 0.15, ease }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-4"
           >
             {title}
           </motion.h1>
           {description && (
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.9, delay: 0.3, ease }}
               className="text-lg md:text-xl text-white/75 leading-relaxed max-w-2xl"
             >
               {description}

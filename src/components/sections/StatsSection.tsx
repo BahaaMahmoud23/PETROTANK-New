@@ -35,29 +35,30 @@ export default function StatsSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
           <div>
             <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-light block mb-3"
             >
               {s.eyebrow}
             </motion.span>
             <motion.h2
               id="stats-heading"
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="text-3xl md:text-4xl font-bold text-white"
             >
               {s.title}
             </motion.h2>
           </div>
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.85, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="text-white/35 text-sm max-w-xs leading-relaxed"
           >
             {s.description}
@@ -66,10 +67,10 @@ export default function StatsSection() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: "rgba(255,255,255,0.08)" }}>
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="col-span-2 lg:col-span-2 p-8 md:p-10"
             style={{ background: "#355486" }}
           >
@@ -85,17 +86,17 @@ export default function StatsSection() {
           {statsData.slice(1).map(({ prefix, target, suffix, decimals }, i) => (
             <motion.div
               key={s.items[i + 1].label}
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: (i + 1) * 0.07 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.85, delay: (i + 1) * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="p-6 md:p-8 group hover:bg-white/[0.04] transition-colors"
               style={{ background: "#355486" }}
             >
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-light mb-2">
                 {s.items[i + 1].label}
               </p>
-              <p className="text-3xl md:text-4xl font-bold text-white leading-none tabular-nums">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-none tabular-nums whitespace-nowrap">
                 <AnimatedCounter target={target} prefix={prefix} suffix={suffix} decimals={decimals} />
               </p>
               <p className="text-white/30 text-[11px] mt-2">{s.items[i + 1].description}</p>

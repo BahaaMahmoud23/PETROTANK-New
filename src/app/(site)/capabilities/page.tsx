@@ -7,17 +7,9 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { fadeUp, stagger, imageReveal, ease, viewport, viewportLazy } from "@/lib/animations";
 
 const advantageIcons = [Trophy, Anchor, ShieldCheck, Cpu];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09 } },
-};
-const itemVariants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 const performanceData = [
   { target: 669,    decimals: 0, suffix: "+" },
@@ -49,16 +41,16 @@ export default function CapabilitiesPage() {
             align="left"
           />
           <motion.div
-            variants={containerVariants}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={viewportLazy}
             className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {cp.infrastructure.items.map(({ label, value, note }) => (
               <motion.div
                 key={label}
-                variants={itemVariants}
+                variants={fadeUp}
                 className="bg-canvas border border-border rounded-xl p-5 hover:border-primary/30 hover:shadow-md transition-all"
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -85,25 +77,27 @@ export default function CapabilitiesPage() {
                 align="left"
               />
               <motion.div
-                variants={containerVariants}
+                variants={stagger}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportLazy}
                 className="mt-10 grid grid-cols-2 gap-5"
               >
                 {cp.marine.items.map(({ label, value }) => (
-                  <motion.div key={label} variants={itemVariants} className="bg-white border border-border rounded-xl p-5">
+                  <motion.div key={label} variants={fadeUp} className="bg-white border border-border rounded-xl p-5">
                     <p className="text-lg font-bold text-primary">{value}</p>
                     <p className="text-xs text-muted mt-1">{label}</p>
                   </motion.div>
                 ))}
               </motion.div>
             </div>
+
+            {/* Image reveal — slide + subtle scale */}
             <motion.div
-              initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65 }}
+              initial={{ opacity: 0, x: isRTL ? -40 : 40, scale: 1.03 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 1.0, ease }}
               className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
             >
               <img src="/images/industry/MLA_fa5da4a5.webp" alt="Marine loading arm operations" className="w-full h-full object-cover" loading="lazy" />
@@ -116,15 +110,18 @@ export default function CapabilitiesPage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Image reveal */}
             <motion.div
-              initial={{ opacity: 0, x: isRTL ? 30 : -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65 }}
+              initial={{ opacity: 0, x: isRTL ? 40 : -40, scale: 1.03 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 1.0, ease }}
               className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
             >
               <img src="/images/industry/TruckBay_1e9ca1b2.webp" alt="Truck bay loading operations" className="w-full h-full object-cover" loading="lazy" />
             </motion.div>
+
             <div>
               <SectionHeader
                 label={cp.landSide.sectionLabel}
@@ -133,14 +130,14 @@ export default function CapabilitiesPage() {
                 align="left"
               />
               <motion.ul
-                variants={containerVariants}
+                variants={stagger}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportLazy}
                 className="mt-8 space-y-3"
               >
                 {cp.landSide.items.map((item) => (
-                  <motion.li key={item} variants={itemVariants} className="flex items-start gap-3">
+                  <motion.li key={item} variants={fadeUp} className="flex items-start gap-3">
                     <CheckCircle2 size={17} className="text-teal shrink-0 mt-0.5" />
                     <span className="text-sm text-ink">{item}</span>
                   </motion.li>
@@ -161,16 +158,16 @@ export default function CapabilitiesPage() {
             light
           />
           <motion.div
-            variants={containerVariants}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={viewportLazy}
             className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-5"
           >
             {cp.technology.items.map(({ name, description }) => (
               <motion.div
                 key={name}
-                variants={itemVariants}
+                variants={fadeUp}
                 className="bg-white/10 border border-white/15 rounded-xl p-6 hover:bg-white/15 transition-colors"
               >
                 <div className="flex items-center gap-3 mb-3">
@@ -197,25 +194,27 @@ export default function CapabilitiesPage() {
                 align="left"
               />
               <motion.ul
-                variants={containerVariants}
+                variants={stagger}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportLazy}
                 className="mt-8 space-y-3"
               >
                 {cp.sheq.items.map((item) => (
-                  <motion.li key={item} variants={itemVariants} className="flex items-start gap-3">
+                  <motion.li key={item} variants={fadeUp} className="flex items-start gap-3">
                     <ShieldCheck size={16} className="text-teal shrink-0 mt-0.5" />
                     <span className="text-sm text-ink">{item}</span>
                   </motion.li>
                 ))}
               </motion.ul>
             </div>
+
+            {/* Image reveal */}
             <motion.div
-              initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65 }}
+              initial={{ opacity: 0, x: isRTL ? -40 : 40, scale: 1.03 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 1.0, ease }}
               className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
             >
               <img src="/images/industry/ShipatBerth_cb8f1ea3.webp" alt="Safety inspection" className="w-full h-full object-cover" loading="lazy" />
@@ -229,33 +228,35 @@ export default function CapabilitiesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease }}
               className="text-xs font-semibold uppercase tracking-[0.15em] text-teal block mb-3"
             >
               {cp.performance.eyebrow}
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, ease }}
               className="text-3xl md:text-4xl font-bold text-white"
             >
               {cp.performance.title}
             </motion.h2>
           </div>
           <motion.div
-            variants={containerVariants}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={viewportLazy}
             className="grid grid-cols-2 lg:grid-cols-4 gap-5"
           >
             {cp.performance.metrics.map(({ label }, i) => (
               <motion.div
                 key={label}
-                variants={itemVariants}
+                variants={fadeUp}
                 className="text-center bg-white/5 border border-white/10 rounded-xl p-7 min-h-[120px] flex flex-col items-center justify-center"
               >
                 <p className="text-3xl lg:text-2xl font-bold text-white mb-1 whitespace-nowrap tabular-nums">
@@ -277,10 +278,10 @@ export default function CapabilitiesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, ease }}
             >
               <span className="text-xs font-semibold uppercase tracking-[0.15em] text-teal block mb-3">
                 {cp.expansion.eyebrow}
@@ -302,10 +303,10 @@ export default function CapabilitiesPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
+              initial={{ opacity: 0, x: isRTL ? -40 : 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, delay: 0.15, ease }}
               className="bg-canvas border border-border rounded-2xl p-8"
             >
               <h3 className="font-bold text-ink text-lg mb-6 flex items-center gap-2">
@@ -332,10 +333,10 @@ export default function CapabilitiesPage() {
             description={cp.advantages.description}
           />
           <motion.div
-            variants={containerVariants}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={viewportLazy}
             className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6"
           >
             {cp.advantages.items.map(({ title, description }, i) => {
@@ -343,7 +344,7 @@ export default function CapabilitiesPage() {
               return (
                 <motion.div
                   key={title}
-                  variants={itemVariants}
+                  variants={fadeUp}
                   className="bg-white border border-border rounded-xl p-7 hover:border-teal/30 hover:shadow-lg transition-all group"
                 >
                   <div className="flex items-start gap-5">
@@ -361,10 +362,10 @@ export default function CapabilitiesPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, delay: 0.2, ease }}
             className="mt-10 text-center"
           >
             <Link

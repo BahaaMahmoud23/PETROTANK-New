@@ -38,10 +38,10 @@ export default function FacilityMetrics() {
           {items.map(({ value, label, sub }, i) => (
             <motion.div
               key={label}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className={`py-8 px-4 flex flex-col justify-center min-h-[100px] ${
                 i < items.length - 1 ? "border-e border-white/8" : ""
               } first:ps-0 last:pe-0 group overflow-hidden`}

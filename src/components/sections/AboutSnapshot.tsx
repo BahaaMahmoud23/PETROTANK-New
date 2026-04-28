@@ -24,10 +24,10 @@ export default function AboutSnapshot() {
 
           {/* ── Col 1: label + big title ─────────── */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="text-[12px] font-semibold uppercase tracking-[0.15em] text-teal block mb-4">
               {label}
@@ -42,10 +42,10 @@ export default function AboutSnapshot() {
 
           {/* ── Col 2: paragraphs + link ──────────── */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-4"
           >
             <p className="text-[15px] text-muted leading-[1.75]">{p1}</p>
@@ -61,10 +61,10 @@ export default function AboutSnapshot() {
 
           {/* ── Col 3: facility image ─────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 0, x: 36 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.65, delay: 0.18 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
           >
             <Image

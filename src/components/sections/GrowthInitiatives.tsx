@@ -40,28 +40,29 @@ export default function GrowthInitiatives() {
         {/* Centered header */}
         <div className="text-center mb-12">
           <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal block mb-3"
           >
             {g.eyebrow}
           </motion.span>
           <motion.h2
             id="growth-heading"
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="text-3xl md:text-4xl font-bold text-ink mb-4"
           >
             {g.title}
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             className="text-muted text-base max-w-2xl mx-auto"
           >
             {g.subtitle}
@@ -70,10 +71,10 @@ export default function GrowthInitiatives() {
 
         {/* Featured banner image */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.65 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="rounded-2xl overflow-hidden mb-10 shadow-lg shadow-primary/8"
           style={{ aspectRatio: "21/7" }}
         >
@@ -90,10 +91,10 @@ export default function GrowthInitiatives() {
           {allCards.map(({ icon: Icon, badge, title, description, metrics }, i) => (
             <motion.div
               key={title}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.85, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4, transition: { duration: 0.25 } }}
               className="bg-white border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300 group"
             >

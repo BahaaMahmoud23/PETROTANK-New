@@ -16,10 +16,10 @@ export default function CoreValues() {
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-16 xl:gap-24 items-start">
 
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -28 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="lg:sticky lg:top-32"
           >
             <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal block mb-4">
@@ -56,10 +56,10 @@ export default function CoreValues() {
               return (
                 <motion.div
                   key={name}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.07 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.85, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-start gap-6 py-7 group cursor-default"
                 >
                   <span className="text-[11px] font-bold text-border tabular-nums pt-1 shrink-0 group-hover:text-teal transition-colors">

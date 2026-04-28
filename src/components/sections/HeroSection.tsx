@@ -100,7 +100,7 @@ export default function HeroSection() {
                     <Icon size={13} className="text-teal-light" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-white font-bold text-[12px] leading-tight">{value}</p>
+                    <p className="text-white font-bold text-[12px] leading-tight whitespace-nowrap">{value}</p>
                     <p className="text-white/55 text-[10px] leading-tight">{label}</p>
                   </div>
                 </motion.div>

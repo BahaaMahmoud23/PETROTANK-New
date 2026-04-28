@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ease } from "@/lib/animations";
 
 interface SectionHeaderProps {
   label?: string;
@@ -21,10 +22,10 @@ export default function SectionHeader({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.9, ease }}
       className={`flex flex-col gap-3 ${alignClass}`}
     >
       {label && (

@@ -19,20 +19,20 @@ export default function CertificationsSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-14">
           <div>
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-[11px] font-semibold uppercase tracking-[0.2em] block mb-3 text-teal"
             >
               {c.eyebrow}
             </motion.span>
             <motion.h2
               id="certifications-heading"
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="text-3xl md:text-4xl font-bold text-ink"
             >
               {c.title}
@@ -42,8 +42,8 @@ export default function CertificationsSection() {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
             <Link
               href="/certifications"
@@ -59,7 +59,7 @@ export default function CertificationsSection() {
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {c.groups.map(({ category, items }, gi) => {
@@ -103,10 +103,10 @@ export default function CertificationsSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.3 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col md:flex-row items-start md:items-center gap-4 p-6 bg-surface-blue border border-border rounded-xl"
         >
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">

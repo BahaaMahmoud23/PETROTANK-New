@@ -51,7 +51,7 @@ export default function ContactPage() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.25 }}
               className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm"
             >
               {!submitted ? (
@@ -179,8 +179,8 @@ export default function ContactPage() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-5"
             >
               <div className="bg-white border border-border rounded-2xl p-8 md:p-10 shadow-sm">
@@ -219,8 +219,8 @@ export default function ContactPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="mt-8 bg-primary rounded-2xl p-8"
           >
             <p className="text-xs font-semibold uppercase tracking-wider text-teal-light mb-6">{cp.quickLinksTitle}</p>
@@ -251,7 +251,7 @@ export default function ContactPage() {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.25 }}
           className="border-t border-border"
         >
           <iframe
@@ -274,7 +274,7 @@ export default function ContactPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.25 }}
             className="text-center"
           >
             <p className="text-muted text-base mb-1.5">{cp.urgentTitle}</p>

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Cairo } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Providers from "@/components/Providers";
 
 const montserrat = Montserrat({
   variable: "--font-en",
@@ -47,12 +44,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       className={`${montserrat.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen antialiased bg-canvas text-ink">
-        <Providers>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </Providers>
+      <body className="min-h-screen antialiased">
+        {children}
       </body>
     </html>
   );

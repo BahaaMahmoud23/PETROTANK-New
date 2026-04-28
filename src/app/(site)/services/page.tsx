@@ -6,6 +6,7 @@ import { Droplets, FlaskConical, Anchor, Truck, Cpu, CheckCircle2, ArrowRight } 
 import PageHero from "@/components/ui/PageHero";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { fadeUp, stagger, ease } from "@/lib/animations";
 
 const serviceStatics = [
   { id: "storage", icon: Droplets, color: "text-primary", bg: "bg-surface-blue", image: "/images/industry/storage-tanks.webp" },
@@ -68,54 +69,95 @@ export default function ServicesPage() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5, ease }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
             >
               <div>
-                <div className="flex items-center gap-3 mb-5">
+                <motion.div
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1, ease }}
+                  className="flex items-center gap-3 mb-5"
+                >
                   <div className={`w-12 h-12 rounded-xl ${currentStatic.bg} flex items-center justify-center`}>
                     <currentStatic.icon size={24} className={currentStatic.color} />
                   </div>
                   <span className="text-xs font-semibold uppercase tracking-[0.15em] text-teal">
                     {current.tagline}
                   </span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-ink mb-5">{current.title}</h2>
-                <p className="text-muted text-base md:text-lg leading-relaxed mb-8">{current.description}</p>
-
-                <h3 className="text-base font-bold text-ink mb-4">{sp.featuresHeading}</h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                  {current.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5">
-                      <CheckCircle2 size={16} className="text-teal shrink-0 mt-0.5" />
-                      <span className="text-sm text-ink">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-semibold text-sm transition-colors cursor-pointer group"
+                </motion.div>
+                <motion.h2
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.15, ease }}
+                  className="text-3xl md:text-4xl font-bold text-ink mb-5"
                 >
-                  {sp.inquireBtn}
-                  <ArrowRight size={16} className={`group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} />
-                </Link>
+                  {current.title}
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.22, ease }}
+                  className="text-muted text-base md:text-lg leading-relaxed mb-8"
+                >
+                  {current.description}
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3, ease }}
+                >
+                  <h3 className="text-base font-bold text-ink mb-4">{sp.featuresHeading}</h3>
+                  <motion.ul
+                    variants={stagger}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
+                  >
+                    {current.features.map((feature) => (
+                      <motion.li key={feature} variants={fadeUp} className="flex items-start gap-2.5">
+                        <CheckCircle2 size={16} className="text-teal shrink-0 mt-0.5" />
+                        <span className="text-sm text-ink">{feature}</span>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-semibold text-sm transition-colors cursor-pointer group"
+                  >
+                    {sp.inquireBtn}
+                    <ArrowRight size={16} className={`group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} />
+                  </Link>
+                </motion.div>
               </div>
 
               <div className="space-y-6">
-                <div className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10">
+                {/* Image reveal — scale + fade on tab switch */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.0, ease }}
+                  className="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl shadow-primary/10"
+                >
                   <img
                     src={currentStatic.image}
                     alt={current.title}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                </div>
+                </motion.div>
 
-                <div className="bg-white border border-border rounded-xl p-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease }}
+                  className="bg-white border border-border rounded-xl p-6"
+                >
                   <h3 className="text-sm font-bold text-ink mb-4 uppercase tracking-wider">
                     {sp.specsHeading}
                   </h3>
@@ -127,7 +169,7 @@ export default function ServicesPage() {
                       </div>
                     ))}
                   </dl>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </AnimatePresence>

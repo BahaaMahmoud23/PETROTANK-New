@@ -18,37 +18,38 @@ export default function ContactCTA() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             <div className="p-10 md:p-14">
               <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 className="text-xs font-semibold uppercase tracking-[0.15em] text-teal-light block mb-4"
               >
                 {c.eyebrow}
               </motion.span>
               <motion.h2
                 id="contact-cta-heading"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 36 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 className="text-3xl md:text-4xl font-bold text-white mb-4"
               >
                 {c.title}
               </motion.h2>
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 36 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: 0.1 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="text-white/70 text-base leading-relaxed mb-8 max-w-md"
               >
                 {c.description}
               </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 36 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: 0.2 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Link

@@ -34,26 +34,26 @@ export default function ServicesSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
           <div>
             <motion.span
-              initial={{ opacity: 0, x: isRTL ? 10 : -10 }}
+              initial={{ opacity: 0, x: isRTL ? 16 : -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal block mb-3"
             >
               {s.eyebrow}
             </motion.span>
             <motion.h2
               id="services-heading"
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="text-3xl md:text-4xl font-bold text-ink"
             >
               {s.title}
             </motion.h2>
           </div>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, delay: 0.3 }}>
             <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-teal transition-colors cursor-pointer group">
               {s.ctaLink}
               <ArrowRight size={15} className={`group-hover:translate-x-0.5 transition-transform ${isRTL ? "scale-x-[-1]" : ""}`} aria-hidden="true" />
@@ -66,10 +66,10 @@ export default function ServicesSection() {
 
           {/* ── FEATURED: Storage Solutions (2 cols × tall) ─ */}
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.65 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="col-span-1 md:col-span-2 row-span-1"
             style={{ height: 380 }}
           >
@@ -129,10 +129,10 @@ export default function ServicesSection() {
 
           {/* ── Marine Operations (1 col × full height) ─── */}
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.65, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             style={{ height: 380 }}
           >
             <ServiceCard
@@ -149,10 +149,10 @@ export default function ServicesSection() {
           {[1, 2, 3].map((idx) => (
             <motion.div
               key={s.items[idx].title}
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: idx * 0.1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.85, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
               style={{ height: 260 }}
             >
               <ServiceCard
