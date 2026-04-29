@@ -10,8 +10,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import type { Locale } from "@/contexts/LanguageContext";
 
 export default function Header() {
-  const { t, locale, setLocale, isRTL } = useLanguage();
-  const [atTop, setAtTop] = useState(true);
+  const { t, locale, setLocale } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [hoverTop, setHoverTop] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -19,10 +19,9 @@ export default function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const threshold = pathname === "/" ? window.innerHeight * 0.82 : window.innerHeight * 0.36;
     const onScroll = () => {
       const current = window.scrollY;
-      setAtTop(current < threshold);
+      setIsScrolled(current > 80);
       if (current > 80) {
         setHidden(current > prevScrollY.current);
       } else {
@@ -33,7 +32,7 @@ export default function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, []);
 
   useEffect(() => setMobileOpen(false), [pathname]);
   useEffect(() => { if (hidden) setMobileOpen(false); }, [hidden]);
@@ -49,13 +48,6 @@ export default function Header() {
 
   const toggleLang = () => setLocale(locale === "en" ? "ar" : ("en" as Locale));
 
-  const linkBase = "relative px-3.5 py-2 text-[13.5px] font-medium transition-colors duration-200 cursor-pointer";
-  const linkColor = atTop
-    ? "text-white/85 hover:text-white"
-    : "text-ink hover:text-primary";
-  const activeLinkColor = atTop ? "text-white" : "text-primary";
-  const activeLineColor = atTop ? "bg-white" : "bg-primary";
-
   const navVisible = !hidden || hoverTop;
 
   return (
@@ -68,8 +60,18 @@ export default function Header() {
       aria-hidden="true"
     />
     <header
-      className="fixed top-0 inset-x-0 z-50"
-      style={{ transform: navVisible ? "translateY(0)" : "translateY(-100%)", transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)" }}
+      className={`fixed top-0 inset-x-0 z-50 ${
+        isScrolled
+          ? "border-b border-white/[0.08]"
+          : "border-b border-transparent"
+      }`}
+      style={{
+        transform: navVisible ? "translateY(0)" : "translateY(-100%)",
+        backgroundColor: isScrolled ? "rgba(10, 25, 47, 0.85)" : "transparent",
+        backdropFilter: isScrolled ? "blur(10px)" : "none",
+        WebkitBackdropFilter: isScrolled ? "blur(10px)" : "none",
+        transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease",
+      }}
       onMouseEnter={() => setHoverTop(true)}
       onMouseLeave={() => setHoverTop(false)}
     >
@@ -100,13 +102,15 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className={`${linkBase} ${active ? activeLinkColor : linkColor}`}
+                  className={`relative px-3.5 py-2 text-[13.5px] font-medium transition-colors duration-200 cursor-pointer ${
+                    active ? "text-white" : "text-white/75 hover:text-white"
+                  }`}
                 >
                   {label}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className={`absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full ${activeLineColor}`}
+                      className="absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full bg-white"
                     />
                   )}
                 </Link>
@@ -120,11 +124,7 @@ export default function Header() {
             <button
               type="button"
               onClick={toggleLang}
-              className={`hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all duration-200 cursor-pointer text-[13px] font-medium ${
-                atTop
-                  ? "border-white/25 text-white/85 hover:border-white/50 hover:text-white"
-                  : "border-border text-ink hover:border-primary/30 hover:bg-surface-blue hover:text-primary"
-              }`}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/25 text-white/75 hover:border-white/50 hover:text-white transition-all duration-200 cursor-pointer text-[13px] font-medium"
               aria-label={`Switch to ${locale === "en" ? "Arabic" : "English"}`}
             >
               <Globe size={14} aria-hidden="true" />
@@ -135,9 +135,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2 rounded-md transition-colors cursor-pointer ${
-                atTop ? "text-white hover:bg-white/10" : "text-ink hover:bg-canvas"
-              }`}
+              className="lg:hidden p-2 rounded-md text-white hover:bg-white/10 transition-colors cursor-pointer"
               aria-expanded={mobileOpen}
               aria-label="Toggle navigation menu"
             >
@@ -147,7 +145,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ── Mobile drawer (always opaque — it's a panel) ─── */}
+      {/* ── Mobile drawer ─── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -155,7 +153,8 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden bg-white border-t border-border shadow-lg"
+            className="lg:hidden overflow-hidden border-t border-white/[0.08]"
+            style={{ backgroundColor: "rgba(10, 25, 47, 0.95)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
           >
             <nav className="max-w-7xl mx-auto px-4 py-3 space-y-0.5" aria-label="Mobile navigation">
               {navLinks.map(({ label, href }) => {
@@ -165,20 +164,20 @@ export default function Header() {
                     key={href}
                     href={href}
                     className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
-                      active ? "bg-surface-blue text-primary" : "text-ink hover:bg-canvas hover:text-primary"
+                      active ? "bg-white/10 text-white" : "text-white/75 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     {label}
                   </Link>
                 );
               })}
-              <div className="pt-2 pb-1 border-t border-border mt-2">
+              <div className="pt-2 pb-1 border-t border-white/[0.08] mt-2">
                 <button
                   type="button"
                   onClick={toggleLang}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border text-sm font-medium text-ink hover:bg-canvas transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-white/20 text-sm font-medium text-white/75 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
                 >
-                  <Globe size={16} className="text-muted" />
+                  <Globe size={16} className="opacity-75" />
                   {t.langToggleLabel}
                 </button>
               </div>
