@@ -21,7 +21,8 @@
       "Bash(git commit -m ' *)",
       "Bash(node -e \"const fs=require\\('fs'\\); console.log\\('logo2.png exists:', fs.existsSync\\('public/images/logo2.png'\\)\\); console.log\\('logo 2.png exists:', fs.existsSync\\('public/images/logo 2.png'\\)\\);\")",
       "Bash(cp \"public/images/logo 2.png\" \"public/images/logo2.png\")",
-      "Bash(node -e \"const fs=require\\('fs'\\); console.log\\('logo2.png size:', fs.statSync\\('public/images/logo2.png'\\).size, 'bytes'\\);\")"
+      "Bash(node -e \"const fs=require\\('fs'\\); console.log\\('logo2.png size:', fs.statSync\\('public/images/logo2.png'\\).size, 'bytes'\\);\")",
+      "Bash(curl *)"
     ]
   }
 }
